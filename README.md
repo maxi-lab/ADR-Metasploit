@@ -10,6 +10,24 @@ El objetivo principal de esta API es servir como entorno de pruebas y experiment
 - **Django** y **Django REST Framework** (DRF) para la creación de la API.
 - Python 3.x
 
+## Autenticación
+Esta API utiliza autenticación por token (DRF Token Authentication). Para obtener un token, realiza un POST a `/api/token-auth/` con tu usuario y contraseña de Django:
+
+```
+POST /api/token-auth/
+{
+	"username": "<usuario>",
+	"password": "<contraseña>"
+}
+```
+El token devuelto debe ser enviado en el header `Authorization` de tus requests:
+
+```
+Authorization: Token <tu_token>
+```
+
+Todos los endpoints requieren autenticación, excepto la obtención del token.
+
 ## Autores
 - Agustín Cucchiarelli
 - Emiliano Di Grappa
