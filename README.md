@@ -10,6 +10,87 @@ El objetivo principal de esta API es servir como entorno de pruebas y experiment
 - **Django** y **Django REST Framework** (DRF) para la creación de la API.
 - Python 3.x
 
+## Instalación y Configuración
+
+### 1. Clonar el repositorio y crear entorno virtual
+
+Windows (CMD):
+```cmd
+# Navegar al directorio del proyecto
+cd ADR-Metasploit\API
+
+# Crear el entorno virtual
+python -m venv env
+
+# Activar el entorno virtual
+env\Scripts\activate
+```
+
+Linux/macOS (Bash):
+```bash
+# Navegar al directorio del proyecto
+cd ADR-Metasploit/API
+
+# Crear el entorno virtual
+python3 -m venv env
+
+# Activar el entorno virtual
+source env/bin/activate
+```
+
+### 2. Instalar dependencias
+
+Windows (CMD):
+```cmd
+# Con el entorno virtual activado
+python -m pip install -r requirements.txt
+```
+
+Linux/macOS (Bash):
+```bash
+# Con el entorno virtual activado
+pip install -r requirements.txt
+```
+
+### 3. Configurar la base de datos
+
+Windows (CMD):
+```cmd
+python manage.py makemigrations
+python manage.py migrate
+```
+
+Linux/macOS (Bash):
+```bash
+./manage.py makemigrations
+./manage.py migrate
+```
+
+### 4. Crear un superusuario (para acceder a la API)
+
+Windows (CMD):
+```cmd
+python manage.py createsuperuser
+```
+
+Linux/macOS (Bash):
+```bash
+./manage.py createsuperuser
+```
+
+### 5. Iniciar el servidor de desarrollo
+
+Windows (CMD):
+```cmd
+python manage.py runserver
+```
+
+Linux/macOS (Bash):
+```bash
+./manage.py runserver
+```
+El servidor estará disponible en `http://127.0.0.1:8000/`.
+
 ## Autenticación
 Esta API utiliza autenticación por token (DRF Token Authentication). Para obtener un token, realiza un POST a `/api/token-auth/` con tu usuario y contraseña de Django:
 
