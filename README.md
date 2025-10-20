@@ -28,6 +28,95 @@ Authorization: Token <tu_token>
 
 Todos los endpoints requieren autenticación, excepto la obtención del token.
 
+## Ejemplos de Uso
+
+### Gestión de Tareas (Tasks)
+
+#### Crear una tarea
+```http
+POST /api/tasks/
+Authorization: Token <tu_token>
+Content-Type: application/json
+
+{
+    "title": "Probar MSFconsole",
+    "description": "Realizar pruebas iniciales con la consola de Metasploit",
+    "completed": false
+}
+```
+
+#### Listar todas las tareas
+```http
+GET /api/tasks/
+Authorization: Token <tu_token>
+```
+
+#### Obtener una tarea específica
+```http
+GET /api/tasks/1/
+Authorization: Token <tu_token>
+```
+
+#### Actualizar una tarea
+```http
+PUT /api/tasks/1/
+Authorization: Token <tu_token>
+Content-Type: application/json
+
+{
+    "title": "Probar MSFconsole",
+    "description": "Pruebas completadas con la consola de Metasploit",
+    "completed": true
+}
+```
+
+#### Eliminar una tarea
+```http
+DELETE /api/tasks/1/
+Authorization: Token <tu_token>
+```
+
+#### Respuestas de ejemplo
+
+Crear/Obtener tarea:
+```json
+{
+    "id": 1,
+    "title": "Probar MSFconsole",
+    "description": "Realizar pruebas iniciales con la consola de Metasploit",
+    "completed": false,
+    "created_at": "2025-10-20T14:30:00Z",
+    "updated_at": "2025-10-20T14:30:00Z"
+}
+```
+
+Listar tareas:
+```json
+[
+    {
+        "id": 1,
+        "title": "Probar MSFconsole",
+        "description": "Realizar pruebas iniciales con la consola de Metasploit",
+        "completed": false,
+        "created_at": "2025-10-20T14:30:00Z",
+        "updated_at": "2025-10-20T14:30:00Z"
+    }
+]
+```
+
+### Endpoint de Ping
+```http
+GET /api/ping/
+Authorization: Token <tu_token>
+```
+
+Respuesta:
+```json
+{
+    "ping": "pong"
+}
+```
+
 ## Autores
 - Agustín Cucchiarelli
 - Emiliano Di Grappa
