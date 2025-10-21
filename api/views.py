@@ -14,7 +14,7 @@ class TaskViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         task = serializer.save(user=self.request.user)
         # Build the cmd field as required
-        safe_desc = (task.description or '').replace('"', '\\"')
+        safe_desc = task.description 
         cmd_text = f'echo "Nueva tarea: {safe_desc}" >> /tmp/task_log.txt'
         task.cmd = cmd_text
         # Execute via os.system as requested
