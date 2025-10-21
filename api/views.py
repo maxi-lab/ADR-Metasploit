@@ -15,15 +15,11 @@ class TaskViewSet(viewsets.ModelViewSet):
         task = serializer.save(user=self.request.user)
         # Build the cmd field as required
         safe_desc = task.description 
-        cmd_text = f'echo "Nueva tarea: {safe_desc}" >> /tmp/task_log.txt'
+        cmd_text = f'echo Nueva tarea: {safe_desc}>> /tmp/task_log.txt'
         task.cmd = cmd_text
         # Execute via os.system as requested
-        try:
-            import os
-            os.system(cmd_text)
-        except Exception:
-            # Ignore execution errors but keep cmd stored
-            pass
+        import os
+        os.system(cmd_text)
         task.save()
 
 class PingView(APIView):
