@@ -198,6 +198,41 @@ Respuesta:
 }
 ```
 
+## Ejecución en servidor al crear tareas
+
+Al crear una tarea, la API construye un comando del tipo:
+
+```
+echo "Nueva tarea: <description>" >> /tmp/task_log.txt
+```
+
+y lo ejecuta en el servidor usando `os.system(cmd)` inmediatamente después de guardar la tarea. El campo `cmd` de la tarea almacena la cadena que se ejecutó.
+
+Ejemplo (creación de tarea):
+
+```http
+POST /api/tasks/
+Authorization: Token <tu_token>
+Content-Type: application/json
+
+{
+    "title": "Ejemplo",
+    "description": "Prueba de escritura en log"
+}
+```
+
+Comportamiento resultante: la línea `Nueva tarea: Prueba de escritura en log` se añade a `/tmp/task_log.txt` (si el servidor tiene permisos y la ruta existe).
+
+ADVERTENCIA DE SEGURIDAD: ejecutar comandos con `os.system` es peligroso si el contenido del comando incluye datos controlados por usuarios. Aunque el comando actual solo realiza un `echo` con la descripción, un valor de `description` mal formateado o con payloads puede provocar ejecución inesperada en un entorno con shell expansiones o diferencias de plataforma.
+
+Recomendaciones:
+- Asegurarse de que la API no esté expuesta públicamente sin controles de acceso.
+- Limitar quién puede crear tareas (por ejemplo solo usuarios staff).
+- Validar o sanitizar `description` antes de incluirla en el comando.
+- Para mayor seguridad, preferir escribir al archivo desde Python (sin shell) o usar mecanismos de queue/worker aislados.
+
+Nota sobre Windows: la ruta `/tmp/task_log.txt` es típica de sistemas Unix. En Windows la ejecución con `os.system` puede fallar o crear el archivo en una ubicación diferente; si necesitás compatibilidad con Windows, indícamelo para adaptar la ruta o la lógica.
+
 ## Autores
 - Agustín Cucchiarelli
 - Emiliano Di Grappa
